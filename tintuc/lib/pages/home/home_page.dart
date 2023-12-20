@@ -4,6 +4,7 @@ import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'package:tintuc/apps/router/router_name.dart';
 import 'package:tintuc/pages/home/widgets/home_category_page.dart';
+import 'package:tintuc/pages/home/widgets/home_drawer.dart';
 import 'package:tintuc/pages/setting/setting_page.dart';
 import 'package:tintuc/provider/category_provider.dart';
 
@@ -15,15 +16,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  @override
-  // List<int> listCate2 = [];
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   // Perform one-time initialization tasks here
-  //   List<int> listCate = (context).read<CategoryProvider>().listCheckbox;
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,92 +31,19 @@ class _HomePageState extends State<HomePage> {
             );
           },
         ),
-        actions: const [
-          Icon(Icons.search),
-          SizedBox(
+        actions: [
+          InkWell(
+            child: const Icon(Icons.search),
+            onTap: () {
+              Navigator.pushNamed(context, RouterName.searchPage);
+            },
+          ),
+          const SizedBox(
             width: 20,
           ),
         ],
       ),
-      drawer: Container(
-        width: MediaQuery.sizeOf(context).width * 0.6,
-        color: Colors.blue,
-        child: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.all(20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    FlutterLogo(
-                      size: 120,
-                    ),
-                  ],
-                ),
-                const Gap(20),
-                const Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'App Tin Tức',
-                      style: TextStyle(
-                        fontSize: 24,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
-                const Gap(30),
-                const Text(
-                  'Trang Chủ',
-                  style: TextStyle(
-                    fontSize: 24,
-                    color: Colors.white,
-                  ),
-                ),
-                const Gap(20),
-                const Text(
-                  'Yêu Thích',
-                  style: TextStyle(
-                    fontSize: 24,
-                    color: Colors.white,
-                  ),
-                ),
-                const Gap(20),
-                const Text(
-                  'Đã Xem',
-                  style: TextStyle(
-                    fontSize: 24,
-                    color: Colors.white,
-                  ),
-                ),
-                const Gap(20),
-                InkWell(
-                  onTap: () {
-                    Navigator.pushAndRemoveUntil(
-                        context,
-                        PageTransition(
-                          child: const SettingPage(),
-                          type: PageTransitionType.fade,
-                        ),
-                        (route) => false);
-                  },
-                  child: const Text(
-                    'Setting',
-                    style: TextStyle(
-                      fontSize: 24,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
+      drawer: const HomeDrawerPage(),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: SingleChildScrollView(

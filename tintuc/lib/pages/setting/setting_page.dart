@@ -19,13 +19,14 @@ class SettingPage extends StatelessWidget {
             //   PageTransition(
             //       child: const HomePage(), type: PageTransitionType.fade),
             // );
-            Navigator.pushAndRemoveUntil(
-                context,
-                PageTransition(
-                  child: const HomePage(),
-                  type: PageTransitionType.fade,
-                ),
-                (route) => false);
+            Navigator.pop(context);
+            // Navigator.pushAndRemoveUntil(
+            //     context,
+            //     PageTransition(
+            //       child: const HomePage(),
+            //       type: PageTransitionType.fade,
+            //     ),
+            //     (route) => false);
           },
           child: const Icon(
             Icons.arrow_back,

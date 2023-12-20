@@ -14,4 +14,15 @@ class NewProvider extends ChangeNotifier {
       rethrow;
     }
   }
+
+  List<NewModel> listNewByCategoryKey = [];
+  Future<void> getNewByKey(key) async {
+    try {
+      List<NewModel> data = await NewRepo.callApiGetNewByKey(key);
+      listNewByCategoryKey = data;
+      notifyListeners();
+    } catch (e) {
+      print(e);
+    }
+  }
 }
