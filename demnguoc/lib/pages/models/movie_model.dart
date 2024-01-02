@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'dart:convert';
 
 // ignore_for_file: public_member_api_docs, sort_constructors_first
@@ -24,10 +26,10 @@ class MovieModel {
 
   factory MovieModel.fromMap(Map<String, dynamic> map) {
     return MovieModel(
-      id: map['id'] as int,
-      title: map['title'] as String,
-      poster_path: map['poster_path'] as String,
-      original_title: map['original_title'] as String,
+      id: map['id'],
+      title: map['title'],
+      poster_path: map['poster_path'],
+      original_title: map['original_title'],
     );
   }
 

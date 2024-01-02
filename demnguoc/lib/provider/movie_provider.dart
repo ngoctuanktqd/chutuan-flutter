@@ -6,15 +6,16 @@ import 'package:flutter/material.dart';
 
 class MovieProvider extends ChangeNotifier {
   List<MovieModel> listMovies = [];
+  List<MovieModel> listMoviesMore = [];
   final StreamController<List<MovieModel>> _movieController =
       StreamController<List<MovieModel>>();
 
   Stream<List<MovieModel>> get movieController => _movieController.stream;
 
-  Future<void> callApi() async {
+  Future<void> callApi(int page) async {
     final dio = Dio();
     final res = await dio.get(
-      'https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1',
+      'https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=$page',
       options: Options(
         headers: {
           'Authorization':
@@ -24,9 +25,19 @@ class MovieProvider extends ChangeNotifier {
       ),
     );
     List dataMovie = res.data['results'];
-    List<MovieModel> listMovies =
+    List<MovieModel> listData =
         dataMovie.map((e) => MovieModel.fromMap(e)).toList();
-    _movieController.add(listMovies);
+
+    if (page == 1) {
+      listMovies = listData;
+      _movieController.add(listMovies);
+    } else {
+      listMovies = List.from(listMovies);
+      listData.forEach((element) {
+        listMovies.add(element);
+      });
+      _movieController.add(listMovies);
+    }
   }
 
   @override
