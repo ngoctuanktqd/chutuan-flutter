@@ -47,7 +47,7 @@ class MoviePage extends StatelessWidget {
                           ),
                         ),
                         Text(listMovies[index].title),
-                        const Text('20-10-2022'),
+                        const Text('20-10-2023'),
                       ],
                     );
                   },
