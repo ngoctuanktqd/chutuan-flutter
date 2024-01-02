@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
-import 'package:tintuc/apps/router/router_name.dart';
 import 'package:tintuc/models/category_model.dart';
-import 'package:tintuc/pages/home/home_page.dart';
 import 'package:tintuc/provider/category_provider.dart';
 
 class SettingPage extends StatelessWidget {

@@ -4,9 +4,11 @@ import 'package:tintuc/apps/keys/mykey.dart';
 import 'package:tintuc/apps/router/router_name.dart';
 import 'package:tintuc/apps/store/share.dart';
 import 'package:tintuc/pages/category/category_page.dart';
+import 'package:tintuc/pages/favorit/favorit_page.dart';
 import 'package:tintuc/pages/home/home_page.dart';
 import 'package:tintuc/pages/loading/loading_page.dart';
 import 'package:tintuc/pages/new/new_page.dart';
+import 'package:tintuc/pages/reading/reading_page.dart';
 import 'package:tintuc/pages/search/search_page.dart';
 import 'package:tintuc/pages/setting/setting_page.dart';
 
@@ -56,6 +58,16 @@ class RouterCustom {
             id: newSetting['id'],
             title: newSetting['title'],
           ),
+          type: PageTransitionType.fade,
+        );
+      case RouterName.favoritPage:
+        return PageTransition(
+          child: const FavoritPage(),
+          type: PageTransitionType.fade,
+        );
+      case RouterName.readingPage:
+        return PageTransition(
+          child: const ReadingPage(),
           type: PageTransitionType.fade,
         );
       default:

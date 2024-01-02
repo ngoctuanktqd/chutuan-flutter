@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (context) => CategoryProvider()..getCheckBoxShare(),
+          create: (context) => CategoryProvider(),
         ),
         ChangeNotifierProvider(
           create: (context) => NewProvider(),

@@ -6,4 +6,6 @@ class RouterName {
   static const String settingPage = '/settingPage';
   static const String newPage = '/newPage';
   static const String searchPage = '/searchPage';
+  static const String favoritPage = '/favoritPage';
+  static const String readingPage = '/readingPage';
 }

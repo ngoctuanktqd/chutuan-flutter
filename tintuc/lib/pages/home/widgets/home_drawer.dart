@@ -41,27 +41,43 @@ class HomeDrawerPage extends StatelessWidget {
                 ],
               ),
               const Gap(30),
-              const Text(
-                'Trang Chủ',
-                style: TextStyle(
-                  fontSize: 24,
-                  color: Colors.white,
+              InkWell(
+                onTap: () {
+                  Navigator.pushNamedAndRemoveUntil(
+                      context, RouterName.homePage, (route) => false);
+                },
+                child: const Text(
+                  'Trang Chủ',
+                  style: TextStyle(
+                    fontSize: 24,
+                    color: Colors.white,
+                  ),
                 ),
               ),
               const Gap(20),
-              const Text(
-                'Yêu Thích',
-                style: TextStyle(
-                  fontSize: 24,
-                  color: Colors.white,
+              InkWell(
+                onTap: () {
+                  Navigator.pushNamed(context, RouterName.favoritPage);
+                },
+                child: const Text(
+                  'Yêu Thích',
+                  style: TextStyle(
+                    fontSize: 24,
+                    color: Colors.white,
+                  ),
                 ),
               ),
               const Gap(20),
-              const Text(
-                'Đã Xem',
-                style: TextStyle(
-                  fontSize: 24,
-                  color: Colors.white,
+              InkWell(
+                onTap: () {
+                  Navigator.pushNamed(context, RouterName.readingPage);
+                },
+                child: const Text(
+                  'Đã Xem',
+                  style: TextStyle(
+                    fontSize: 24,
+                    color: Colors.white,
+                  ),
                 ),
               ),
               const Gap(20),

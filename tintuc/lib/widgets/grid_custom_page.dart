@@ -1,7 +1,12 @@
+// ignore_for_file: unnecessary_import, must_be_immutable
+
 import 'package:flutter/material.dart';
+import 'package:like_button/like_button.dart';
+import 'package:provider/provider.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:tintuc/apps/router/router_name.dart';
 import 'package:tintuc/models/new_model.dart';
+import 'package:tintuc/provider/new_provider.dart';
 
 class GridCustomPost extends StatefulWidget {
   GridCustomPost({
@@ -18,8 +23,17 @@ class GridCustomPost extends StatefulWidget {
 }
 
 class _GridCustomPostState extends State<GridCustomPost> {
+  Future<void> onLikeButtonTapped(NewModel item) async {
+    (context).read<NewProvider>().addNewToListLike(item);
+  }
+
   @override
   Widget build(BuildContext context) {
+    List<NewModel> listNewLike = (context).read<NewProvider>().listNewLike;
+    List<NewModel> listNewReading =
+        (context).read<NewProvider>().listNewReading;
+    print(listNewReading);
+    print(listNewLike);
     return GridView.builder(
       itemCount: widget.listData.length,
       shrinkWrap: true,
@@ -57,6 +71,9 @@ class _GridCustomPostState extends State<GridCustomPost> {
                   InkWell(
                     onTap: () {
                       print(widget.listData[index].id);
+                      (context)
+                          .read<NewProvider>()
+                          .addNewToListReading(widget.listData[index]);
                       Navigator.pushNamed(
                         context,
                         RouterName.newPage,
@@ -66,15 +83,24 @@ class _GridCustomPostState extends State<GridCustomPost> {
                         },
                       );
                     },
-                    child: Text(
-                      widget.listData[index].title,
-                      style: const TextStyle(
-                        fontSize: 24,
-                        color: Colors.amber,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
+                    child: Consumer<NewProvider>(
+                      builder: (context, newProvider, child) {
+                        return Text(
+                          widget.listData[index].title,
+                          style: TextStyle(
+                            fontSize: 24,
+                            color: listNewReading.indexWhere((element) =>
+                                        element.id ==
+                                        widget.listData[index].id) !=
+                                    -1
+                                ? Colors.grey
+                                : Colors.amber,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        );
+                      },
                     ),
                   ),
                   Expanded(
@@ -87,12 +113,28 @@ class _GridCustomPostState extends State<GridCustomPost> {
                       overflow: TextOverflow.ellipsis,
                     ),
                   ),
-                  const Text(
-                    'Mar 5 2023',
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.blue,
-                    ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(
+                        'Mar 5 2023',
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: Colors.blue,
+                        ),
+                      ),
+                      LikeButton(
+                        isLiked: listNewLike.indexWhere((element) =>
+                                    element.id == widget.listData[index].id) !=
+                                -1
+                            ? true
+                            : false,
+                        onTap: (isLike) async {
+                          await onLikeButtonTapped(widget.listData[index]);
+                          return !isLike;
+                        },
+                      ),
+                    ],
                   ),
                 ],
               ),

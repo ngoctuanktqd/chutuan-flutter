@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'package:tintuc/apps/router/router_name.dart';
 import 'package:tintuc/pages/home/widgets/home_category_page.dart';
 import 'package:tintuc/pages/home/widgets/home_drawer.dart';
-import 'package:tintuc/pages/setting/setting_page.dart';
 import 'package:tintuc/provider/category_provider.dart';
 
 class HomePage extends StatefulWidget {

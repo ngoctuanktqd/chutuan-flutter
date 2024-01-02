@@ -1,11 +1,13 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
-import 'package:tintuc/apps/router/router_name.dart';
 import 'package:tintuc/pages/home/home_page.dart';
 import 'package:tintuc/pages/setting/setting_page.dart';
 import 'package:tintuc/provider/category_provider.dart';
+import 'package:tintuc/provider/new_provider.dart';
 
 class LoadingPage extends StatefulWidget {
   LoadingPage({super.key});
@@ -24,6 +26,8 @@ class _LoadingPageState extends State<LoadingPage> {
     Future.wait(
       [
         (context).read<CategoryProvider>().getCheckBoxShare(),
+        (context).read<NewProvider>().getListNewLike(),
+        (context).read<NewProvider>().getListNewReading(),
       ],
     );
     Future.delayed(const Duration(seconds: 3), () {

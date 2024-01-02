@@ -1,6 +1,3 @@
-import 'dart:convert';
-import 'dart:ffi';
-
 import 'package:dio/dio.dart';
 import 'package:tintuc/models/category_model.dart';
 
