@@ -40,11 +40,14 @@ class _MoviePageState extends State<MoviePage> {
 
     // if failed,use loadFailed(),if no data return,usße LoadNodata()
     // items.add((items.length+1).toString());
-    if (mounted)
-      setState(() {
-        page++;
-      });
-    _refreshController.loadComplete();
+    // if (mounted) {
+    //   setState(() {
+    //     page++;
+    //   });
+    // }
+    // _refreshController.loadComplete();
+    // _refreshController.loadFailed();
+    _refreshController.loadNoData();
   }
 
   @override
@@ -61,9 +64,8 @@ class _MoviePageState extends State<MoviePage> {
                 if (snapshot.data!.isEmpty) {
                   return const CircularProgressIndicator();
                 }
-                List<MovieModel> listMovies = (context)
-                    .read<MovieProvider>()
-                    .listMovies as List<MovieModel>;
+                List<MovieModel> listMovies =
+                    (context).read<MovieProvider>().listMovies;
                 return SmartRefresher(
                   enablePullDown: true,
                   enablePullUp: true,

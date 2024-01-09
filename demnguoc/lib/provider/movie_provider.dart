@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 
 class MovieProvider extends ChangeNotifier {
   List<MovieModel> listMovies = [];
-  List<MovieModel> listMoviesMore = [];
   final StreamController<List<MovieModel>> _movieController =
       StreamController<List<MovieModel>>();
 
@@ -32,10 +31,11 @@ class MovieProvider extends ChangeNotifier {
       listMovies = listData;
       _movieController.add(listMovies);
     } else {
-      listMovies = List.from(listMovies);
-      listData.forEach((element) {
-        listMovies.add(element);
-      });
+      // listMovies = List.from(listMovies);
+      // for (var element in listData) {
+      //   listMovies.add(element);
+      // }
+      listMovies.addAll(listData);
       _movieController.add(listMovies);
     }
   }
