@@ -15,11 +15,6 @@ class CategoryDialogCreate extends StatefulWidget {
 class _CategoryDialogCreateState extends State<CategoryDialogCreate> {
   TextEditingController inputCategory = TextEditingController();
   final formKey = GlobalKey<FormState>();
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {

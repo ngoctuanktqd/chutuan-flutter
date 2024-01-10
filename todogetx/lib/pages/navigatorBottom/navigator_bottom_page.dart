@@ -33,13 +33,11 @@ class _NavigatorBottomPageState extends State<NavigatorBottomPage> {
   ];
 
   void bottomOnTap(vallue) {
-    print(vallue);
     if (vallue > 0) {
       setState(() {
         currentIndex = vallue;
       });
     } else {
-      print('Mo menu nao');
       _scaffoldKey.currentState?.openDrawer();
     }
   }

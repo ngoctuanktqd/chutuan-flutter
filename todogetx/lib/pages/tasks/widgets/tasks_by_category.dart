@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:grouped_list/grouped_list.dart';
 import 'package:intl/intl.dart';
 import 'package:todogetx/apps/untils/const.dart';
-import 'package:todogetx/manager/controllers/category_controller.dart';
 import 'package:todogetx/manager/controllers/tasks_controller.dart';
 
 class TasksByCategory extends StatelessWidget {
@@ -11,26 +10,22 @@ class TasksByCategory extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final catergoryController = Get.put(CategoryController());
+    // final catergoryController = Get.put(CategoryController());
     final tasksController = Get.put(TasksController());
     return Expanded(
       child: GroupedListView(
-        groupHeaderBuilder: (element) {
-          print(element);
-          return Container(
-            height: 20,
-            color: Colors.red,
-          );
-        },
         shrinkWrap: true,
         elements: tasksController.listTask,
         groupBy: (element) => element.startDateTime,
         groupSeparatorBuilder: (DateTime groupByValue) => Text(
           DateFormat('dd-MM-yyyy').format(groupByValue),
-          textAlign: TextAlign.center,
-          style: const TextStyle(),
+          textAlign: TextAlign.start,
+          style: const TextStyle(
+            fontWeight: FontWeight.bold,
+          ),
         ),
         itemBuilder: (context, dynamic element) {
+          print(element.isCompleted);
           return Padding(
             padding: const EdgeInsets.symmetric(vertical: 5.0),
             child: Container(
@@ -43,8 +38,10 @@ class TasksByCategory extends StatelessWidget {
               child: Row(
                 children: [
                   Checkbox(
-                    value: false,
-                    onChanged: (value) {},
+                    value: element.isCompleted,
+                    onChanged: (value) {
+                      tasksController.changeIsCompleted(element.id, value);
+                    },
                     shape: const CircleBorder(),
                   ),
                   Expanded(
@@ -54,18 +51,40 @@ class TasksByCategory extends StatelessWidget {
                         Text(
                           element.title,
                           style: const TextStyle(),
-                          textAlign: TextAlign.start,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
                         ),
+                        getHeight(context, 0.01),
                         const Text(
-                            'Culpa consectetur in velit mollit magna exercitation.'),
+                          'Culpa consectetur in velit mollit magna exercitation.',
+                          style: TextStyle(
+                            fontSize: 10,
+                          ),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        getHeight(context, 0.01),
                         Row(
                           children: [
-                            Text(DateFormat('Hms')
-                                .format(element.startDateTime)),
-                            const Icon(Icons.notifications_rounded),
-                            const Icon(Icons.repeat_rounded)
+                            Text(
+                              DateFormat('Hms').format(element.startDateTime),
+                              style: const TextStyle(
+                                color: TuConstantColor.cancel,
+                                fontSize: 12,
+                              ),
+                            ),
+                            getWidth(context, 0.01),
+                            const Icon(
+                              Icons.notifications_rounded,
+                              size: 14,
+                            ),
+                            getWidth(context, 0.01),
+                            const Icon(
+                              Icons.repeat_rounded,
+                              size: 14,
+                            )
                           ],
-                        )
+                        ),
                       ],
                     ),
                   ),

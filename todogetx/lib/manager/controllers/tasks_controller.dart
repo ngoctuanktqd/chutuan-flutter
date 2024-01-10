@@ -1,7 +1,6 @@
 import 'package:get/get.dart';
 import 'package:todogetx/apps/router/router_name.dart';
 import 'package:todogetx/model/task_model.dart';
-import "package:collection/collection.dart";
 
 class TasksController extends GetxController {
   List<TaskModel> listTask = <TaskModel>[
@@ -29,6 +28,13 @@ class TasksController extends GetxController {
 
   List<TaskModel> getTaskByCategory() {
     return listTaskByCategory;
+  }
+
+  changeIsCompleted(id, isCompleted) {
+    int index = listTask.indexWhere((element) => element.id == id);
+    if (index != -1) {
+      listTask[index].isCompleted = isCompleted;
+    }
   }
 
   goToCategories() {
