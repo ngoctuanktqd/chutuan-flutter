@@ -20,9 +20,10 @@ class RowSettingsPage extends StatelessWidget {
           Expanded(
             child: Text(
               name,
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
-              ),
+              style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                    color: Theme.of(context).colorScheme.primary,
+                    fontWeight: FontWeight.normal,
+                  ),
             ),
           ),
           const Icon(

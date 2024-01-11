@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shoppinggetx/apps/consts/consts.dart';
 
 class HomeSearchPage extends StatelessWidget {
   const HomeSearchPage({
@@ -7,15 +8,23 @@ class HomeSearchPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.symmetric(vertical: 0, horizontal: 20),
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 20),
       child: TextField(
         decoration: InputDecoration(
-          prefixIcon: Icon(Icons.search_rounded),
+          prefixIcon: const Icon(Icons.search_rounded),
           hintText: 'Search beverages or foods',
-          border: OutlineInputBorder(
+          hintStyle: Theme.of(context).textTheme.displaySmall,
+          focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(
-              color: Color(0xffE8EFF3),
+              color: Theme.of(context).colorScheme.secondary,
+              width: 2,
+            ),
+            borderRadius: const BorderRadius.all(Radius.circular(20)),
+          ),
+          border: const OutlineInputBorder(
+            borderSide: BorderSide(
+              color: TuConstColor.color_01,
             ),
             borderRadius: BorderRadius.all(
               Radius.circular(20),

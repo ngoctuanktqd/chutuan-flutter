@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -24,20 +26,20 @@ class HomeCategoryPage extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text(
+              Text(
                 'Category',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
-                ),
+                style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
               ),
               InkWell(
                 onTap: () {
                   categoryController.goToCategory();
                 },
-                child: const Icon(
+                child: Icon(
                   Icons.arrow_forward_ios_rounded,
                   size: 18,
+                  color: Theme.of(context).colorScheme.primary,
                 ),
               ),
             ],
@@ -56,25 +58,24 @@ class HomeCategoryPage extends StatelessWidget {
                     categoryProductController
                         .goToCategoryProduct(listCategory[index]);
                   },
-                  child: Container(
+                  child: Ink(
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
                     decoration: BoxDecoration(
                       borderRadius: const BorderRadius.all(Radius.circular(10)),
                       color: listCategory[index].color,
                     ),
-                    height: 80,
-                    width: 80,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         SvgPicture.asset(listCategory[index].image),
                         Text(
                           listCategory[index].name,
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 16.0,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        )
+                          style:
+                              Theme.of(context).textTheme.titleSmall!.copyWith(
+                                    fontSize: 14,
+                                  ),
+                        ),
                       ],
                     ),
                   ),

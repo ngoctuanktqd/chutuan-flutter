@@ -44,8 +44,8 @@ class _NavigatorBottomPageState extends State<NavigatorBottomPage> {
         type: BottomNavigationBarType.fixed,
         showSelectedLabels: false,
         showUnselectedLabels: false,
-        selectedItemColor: const Color(0xff027335),
-        unselectedItemColor: const Color(0xff7D8FAB),
+        selectedItemColor: Theme.of(context).colorScheme.secondary,
+        unselectedItemColor: Theme.of(context).colorScheme.tertiary,
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),

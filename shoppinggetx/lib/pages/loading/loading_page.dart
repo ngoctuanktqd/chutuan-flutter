@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:get/route_manager.dart';
-import 'package:shoppinggetx/apps/router/router_name.dart';
+import 'package:get/get.dart';
+import 'package:shoppinggetx/apps/consts/helpers.dart';
+import 'package:shoppinggetx/manager/controllers/loading_controller.dart';
 
-class LoadingPage extends StatelessWidget {
+class LoadingPage extends GetView<LoadingController> {
   const LoadingPage({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xff027335),
+      resizeToAvoidBottomInset: false,
+      backgroundColor: Theme.of(context).colorScheme.secondary,
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 30.0),
         child: Center(
@@ -17,46 +19,27 @@ class LoadingPage extends StatelessWidget {
             children: [
               Image.asset(
                 'assets/images/loading.png',
-                // width: 260,
-                // height: 260,
               ),
-              const SizedBox(
-                height: 30,
-              ),
-              const Text(
+              getHeight(context, 0.03),
+              Text(
                 'Welcome to Tanam! Grocery Applications',
-                style: TextStyle(
-                  fontSize: 24.0,
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: Theme.of(context).textTheme.titleMedium,
                 textAlign: TextAlign.center,
               ),
-              const SizedBox(
-                height: 20,
-              ),
-              const Text(
+              getHeight(context, 0.03),
+              Text(
                 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore',
-                style: TextStyle(
-                  fontSize: 16.0,
-                  color: Colors.white,
-                ),
+                style: Theme.of(context).textTheme.bodyMedium,
                 textAlign: TextAlign.center,
               ),
-              const SizedBox(
-                height: 50,
-              ),
+              getHeight(context, 0.08),
               InkWell(
                 onTap: () {
-                  Get.toNamed(RouterName.login);
+                  controller.goToLogin();
                 },
-                child: const Text(
+                child: Text(
                   'NEXT',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 24.0,
-                  ),
+                  style: Theme.of(context).textTheme.titleMedium,
                 ),
               ),
             ],

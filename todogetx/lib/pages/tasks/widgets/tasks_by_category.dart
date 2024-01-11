@@ -25,7 +25,7 @@ class TasksByCategory extends StatelessWidget {
           ),
         ),
         itemBuilder: (context, dynamic element) {
-          print(element.isCompleted);
+          print(element);
           return Padding(
             padding: const EdgeInsets.symmetric(vertical: 5.0),
             child: Container(

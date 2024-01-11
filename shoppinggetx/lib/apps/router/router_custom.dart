@@ -3,6 +3,7 @@ import 'package:shoppinggetx/apps/router/router_name.dart';
 import 'package:shoppinggetx/manager/bindings/category_binding.dart';
 import 'package:shoppinggetx/manager/bindings/category_product_binding.dart';
 import 'package:shoppinggetx/manager/bindings/home_binding.dart';
+import 'package:shoppinggetx/manager/bindings/loading_binding.dart';
 import 'package:shoppinggetx/manager/bindings/login_binding.dart';
 import 'package:shoppinggetx/manager/bindings/navigator_bottom_binding.dart';
 import 'package:shoppinggetx/manager/bindings/product_binding.dart';
@@ -23,21 +24,22 @@ class RouterCustom {
     GetPage(
       name: RouterName.loading,
       page: () => const LoadingPage(),
+      binding: LoadingBinding(),
     ),
     GetPage(
       name: RouterName.login,
-      binding: LoginBinding(),
       page: () => const LoginPage(),
+      binding: LoginBinding(),
     ),
     GetPage(
       name: RouterName.signup,
-      binding: SignUpBinding(),
       page: () => const SignUpPage(),
+      binding: SignUpBinding(),
     ),
     GetPage(
       name: RouterName.navigatorBottom,
-      binding: NavigatorBottomBinding(),
       page: () => const NavigatorBottomPage(),
+      binding: NavigatorBottomBinding(),
     ),
     GetPage(
       name: RouterName.settings,
