@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:shoppinggetx/apps/consts/consts.dart';
+import 'package:shoppinggetx/apps/consts/helpers.dart';
 import 'package:shoppinggetx/manager/controllers/category_controller.dart';
 import 'package:shoppinggetx/manager/controllers/category_product_controller.dart';
 
@@ -28,8 +29,8 @@ class HomeCategoryPage extends StatelessWidget {
             children: [
               Text(
                 'Category',
-                style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                      color: Theme.of(context).colorScheme.primary,
+                style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+                      fontSize: 18,
                     ),
               ),
               InkWell(
@@ -73,7 +74,7 @@ class HomeCategoryPage extends StatelessWidget {
                           listCategory[index].name,
                           style:
                               Theme.of(context).textTheme.titleSmall!.copyWith(
-                                    fontSize: 14,
+                                    fontWeight: FontWeight.bold,
                                   ),
                         ),
                       ],
@@ -82,7 +83,7 @@ class HomeCategoryPage extends StatelessWidget {
                 );
               },
               separatorBuilder: (context, index) {
-                return const SizedBox(width: 10);
+                return getWidth(context, 0.02);
               },
               itemCount: listCategory.length,
             ),

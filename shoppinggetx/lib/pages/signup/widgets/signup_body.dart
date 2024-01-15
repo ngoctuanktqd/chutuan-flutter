@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:shoppinggetx/apps/consts/helpers.dart';
 import 'package:shoppinggetx/apps/widgets/button_custom.dart';
 import 'package:shoppinggetx/apps/widgets/text_field_custom.dart';
@@ -39,17 +40,11 @@ class _SignUpBodyPageState extends State<SignUpBodyPage> {
           children: [
             Text(
               'Create your account',
-              style: Theme.of(context)
-                  .textTheme
-                  .titleMedium!
-                  .copyWith(color: Theme.of(context).colorScheme.primary),
+              style: Theme.of(context).textTheme.headlineSmall,
             ),
             Text(
               'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyMedium!
-                  .copyWith(color: Theme.of(context).colorScheme.primary),
+              style: Theme.of(context).textTheme.bodyMedium,
             ),
             getHeight(context, 0.01),
             TextFieldCustom(
@@ -75,11 +70,16 @@ class _SignUpBodyPageState extends State<SignUpBodyPage> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Checkbox(
-                  activeColor: const Color(0xff027335),
-                  value: true,
-                  onChanged: (value) {
-                    return;
+                Obx(
+                  () {
+                    return Checkbox(
+                      activeColor: Theme.of(context).colorScheme.secondary,
+                      value: widget.controller.approveTerm.value,
+                      onChanged: (value) {
+                        widget.controller.setAproveTerm(value);
+                        return;
+                      },
+                    );
                   },
                 ),
                 Expanded(
@@ -87,38 +87,42 @@ class _SignUpBodyPageState extends State<SignUpBodyPage> {
                     children: [
                       Text(
                         'By tapping “Sign Up” you accept our ',
-                        style: Theme.of(context).textTheme.displaySmall,
+                        style: Theme.of(context).textTheme.bodyLarge,
                       ),
                       Text(
                         'terms ',
                         style: Theme.of(context)
                             .textTheme
-                            .displaySmall!
+                            .titleMedium!
                             .copyWith(
                               color: Theme.of(context).colorScheme.secondary,
                               fontWeight: FontWeight.bold,
                             ),
                       ),
-                      const Text('and '),
-                      const Text(
+                      Text(
+                        'and ',
+                        style: Theme.of(context).textTheme.bodyLarge,
+                      ),
+                      Text(
                         'condition',
-                        style: TextStyle(
-                          color: Color(0xff027335),
-                          fontWeight: FontWeight.bold,
-                        ),
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleMedium!
+                            .copyWith(
+                              color: Theme.of(context).colorScheme.secondary,
+                              fontWeight: FontWeight.bold,
+                            ),
                       ),
                     ],
                   ),
                 ),
               ],
             ),
-            const SizedBox(
-              height: 20,
-            ),
+            getHeight(context, 0.02),
             Align(
               child: Text(
                 'Already have account?',
-                style: Theme.of(context).textTheme.displaySmall,
+                style: Theme.of(context).textTheme.bodyLarge,
               ),
             ),
             ButtonCustom(
@@ -126,9 +130,7 @@ class _SignUpBodyPageState extends State<SignUpBodyPage> {
               function: widget.controller.goToLogin,
               isOutline: true,
             ),
-            const SizedBox(
-              height: 20,
-            ),
+            getHeight(context, 0.02),
           ],
         ),
       ),

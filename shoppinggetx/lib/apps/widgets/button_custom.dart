@@ -38,7 +38,7 @@ class ButtonCustom extends StatelessWidget {
           child: Center(
             child: Text(
               title,
-              style: Theme.of(context).textTheme.titleSmall!.copyWith(
+              style: Theme.of(context).textTheme.titleMedium!.copyWith(
                     color: isOutline
                         ? Theme.of(context).colorScheme.secondary
                         : null,

@@ -23,13 +23,13 @@ class LoadingPage extends GetView<LoadingController> {
               getHeight(context, 0.03),
               Text(
                 'Welcome to Tanam! Grocery Applications',
-                style: Theme.of(context).textTheme.titleMedium,
+                style: Theme.of(context).textTheme.titleLarge,
                 textAlign: TextAlign.center,
               ),
               getHeight(context, 0.03),
               Text(
                 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore',
-                style: Theme.of(context).textTheme.bodyMedium,
+                style: Theme.of(context).textTheme.titleSmall,
                 textAlign: TextAlign.center,
               ),
               getHeight(context, 0.08),

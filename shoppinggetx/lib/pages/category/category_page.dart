@@ -14,12 +14,11 @@ class CategoryPage extends StatelessWidget {
     List listCategory = DataConstant.listCategory;
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
+        title: Text(
           'Categories',
-          style: TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
-          ),
+          style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+                color: Colors.white,
+              ),
         ),
         actions: const [
           Icon(Icons.more_vert_rounded),

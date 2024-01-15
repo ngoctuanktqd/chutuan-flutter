@@ -17,7 +17,7 @@ class SharedService extends GetxService {
     await _prefs.setString(key, jsonEncode(value));
   }
 
-  Future<Object> getString(String key) async {
+  Object getString(String key) async {
     String value = _prefs.getString(key) ?? '';
     return jsonDecode(value);
   }

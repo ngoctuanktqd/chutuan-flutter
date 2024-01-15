@@ -15,12 +15,12 @@ class ProductModel {
     required this.id,
     required this.id_cate,
     required this.name,
-    required this.description,
+    this.description = '',
     required this.image,
     required this.price,
-    required this.discount,
-    required this.review,
-    required this.review_count,
+    this.discount = 0,
+    this.review = 0,
+    this.review_count = 0,
   });
 
   Map<String, dynamic> toMap() {

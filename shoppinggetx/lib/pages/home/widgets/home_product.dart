@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:like_button/like_button.dart';
 import 'package:shoppinggetx/apps/consts/consts.dart';
 import 'package:shoppinggetx/apps/consts/helpers.dart';
 import 'package:shoppinggetx/manager/controllers/product_controller.dart';
@@ -20,8 +21,8 @@ class HomeProductPage extends StatelessWidget {
           ),
           child: Text(
             'Popular Deals',
-            style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                  color: Theme.of(context).colorScheme.primary,
+            style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+                  fontSize: 18,
                 ),
           ),
         ),
@@ -39,7 +40,7 @@ class HomeProductPage extends StatelessWidget {
               crossAxisCount: 2,
               mainAxisSpacing: 20,
               crossAxisSpacing: 10,
-              childAspectRatio: 1 / 1.75,
+              childAspectRatio: 150 / 261,
             ),
             itemBuilder: (context, index) {
               return Container(
@@ -53,10 +54,10 @@ class HomeProductPage extends StatelessWidget {
                   children: [
                     InkWell(
                       onTap: () {
-                        productController.goToProduct();
+                        productController.goToProduct(listProduct[index].id);
                       },
                       child: AspectRatio(
-                        aspectRatio: 1 / 1,
+                        aspectRatio: 150 / 140,
                         child: Stack(
                           fit: StackFit.loose,
                           children: [
@@ -96,23 +97,39 @@ class HomeProductPage extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            const Positioned(
+                            Positioned(
                               top: 10,
                               left: 10,
-                              child: Icon(
-                                Icons.favorite_rounded,
-                                color: TuConstColor.red_02,
-                              ),
+                              child: Obx(() {
+                                int indexFavorit = productController.listFavorit
+                                    .indexWhere((element) =>
+                                        element.id == listProduct[index].id);
+                                return LikeButton(
+                                  isLiked: indexFavorit != -1 ? true : false,
+                                  onTap: (isLike) async {
+                                    productController
+                                        .setFavorit(listProduct[index]);
+                                    return null;
+                                    // return !isLike;
+                                  },
+                                );
+                              }),
+                              // ,
                             ),
                           ],
                         ),
                       ),
                     ),
                     getHeight(context, 0.01),
-                    Text(
-                      listProduct[index].name,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
+                    InkWell(
+                      onTap: () {
+                        productController.goToProduct(listProduct[index].id);
+                      },
+                      child: Text(
+                        listProduct[index].name,
+                        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                              fontWeight: FontWeight.bold,
+                            ),
                       ),
                     ),
                     Container(
@@ -126,12 +143,22 @@ class HomeProductPage extends StatelessWidget {
                           Expanded(
                             child: Text(
                               '\$ ${listProduct[index].price}',
-                              style: Theme.of(context).textTheme.displayMedium,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleSmall!
+                                  .copyWith(
+                                    color: TuConstColor.accent_01,
+                                  ),
                             ),
                           ),
                           Text(
                             '(${listProduct[index].review_count.toString()})',
-                            style: Theme.of(context).textTheme.bodySmall,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium!
+                                .copyWith(
+                                  fontSize: 10,
+                                ),
                           ),
                           const Icon(
                             Icons.star,
@@ -146,29 +173,32 @@ class HomeProductPage extends StatelessWidget {
                           final inCart = productController.listCart.indexWhere(
                               (e) => e.idProduct == listProduct[index].id);
                           if (inCart == -1) {
-                            return Container(
-                              padding: const EdgeInsets.symmetric(
-                                vertical: 10,
-                                horizontal: 10,
-                              ),
-                              width: double.infinity,
-                              child: ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: const Color(0xffc8edd9),
-                                  shape: const RoundedRectangleBorder(
+                            return InkWell(
+                              onTap: () {
+                                productController.addToCart(listProduct[index]);
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: Ink(
+                                  decoration: const BoxDecoration(
                                     borderRadius:
-                                        BorderRadius.all(Radius.circular(10)),
+                                        BorderRadius.all(Radius.circular(12)),
+                                    color: TuConstColor.green_01,
                                   ),
-                                ),
-                                onPressed: () {
-                                  productController
-                                      .addToCart(listProduct[index]);
-                                },
-                                child: Text(
-                                  'Add to cart',
-                                  style: TextStyle(
-                                    color:
-                                        Theme.of(context).colorScheme.secondary,
+                                  width: double.infinity,
+                                  child: Center(
+                                    child: Text(
+                                      'Add to cart',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyMedium!
+                                          .copyWith(
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .secondary,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                    ),
                                   ),
                                 ),
                               ),
@@ -185,38 +215,8 @@ class HomeProductPage extends StatelessWidget {
                                       productController.removeCart(
                                           listProduct[index], false);
                                     },
-                                    child: Container(
-                                      padding: const EdgeInsets.all(10.0),
-                                      decoration: const BoxDecoration(
-                                        color: Color(0xff027335),
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(10)),
-                                      ),
-                                      child: const Icon(
-                                        Icons.remove_rounded,
-                                        size: 14,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                  ),
-                                  Text(
-                                    '${productController.listCart[inCart].qtl}',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .titleSmall!
-                                        .copyWith(
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .primary,
-                                        ),
-                                  ),
-                                  InkWell(
-                                    onTap: () {
-                                      productController
-                                          .addToCart(listProduct[index]);
-                                    },
-                                    child: Container(
-                                      padding: const EdgeInsets.all(10.0),
+                                    child: Ink(
+                                      padding: const EdgeInsets.all(4.0),
                                       decoration: BoxDecoration(
                                         color: Theme.of(context)
                                             .colorScheme
@@ -225,10 +225,44 @@ class HomeProductPage extends StatelessWidget {
                                             Radius.circular(10)),
                                       ),
                                       child: const Icon(
-                                        Icons.add_rounded,
-                                        size: 14,
+                                        Icons.remove_rounded,
+                                        size: 24,
                                         color: Colors.white,
-                                        weight: 10,
+                                        weight: 600,
+                                      ),
+                                    ),
+                                  ),
+                                  Text(
+                                    '${productController.listCart[inCart].qtl}',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyMedium!
+                                        .copyWith(
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .secondary,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                  ),
+                                  InkWell(
+                                    onTap: () {
+                                      productController
+                                          .addToCart(listProduct[index]);
+                                    },
+                                    child: Ink(
+                                      padding: const EdgeInsets.all(4.0),
+                                      decoration: BoxDecoration(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .secondary,
+                                        borderRadius: const BorderRadius.all(
+                                            Radius.circular(12)),
+                                      ),
+                                      child: const Icon(
+                                        Icons.add_rounded,
+                                        size: 24,
+                                        color: Colors.white,
+                                        weight: 600,
                                       ),
                                     ),
                                   ),

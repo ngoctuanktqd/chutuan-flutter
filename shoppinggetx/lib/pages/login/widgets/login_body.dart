@@ -42,18 +42,12 @@ class _LoginBodyPageState extends State<LoginBodyPage> {
             children: [
               Text(
                 'Welcome back',
-                style: Theme.of(context)
-                    .textTheme
-                    .titleMedium!
-                    .copyWith(color: Theme.of(context).colorScheme.primary),
+                style: Theme.of(context).textTheme.headlineSmall,
               ),
               getHeight(context, 0.01),
               Text(
                 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor',
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyMedium!
-                    .copyWith(color: Colors.black),
+                style: Theme.of(context).textTheme.bodyMedium,
               ),
               getHeight(context, 0.01),
               TextFieldCustom(
@@ -69,11 +63,12 @@ class _LoginBodyPageState extends State<LoginBodyPage> {
                 suffixIcon: Icons.visibility_rounded,
                 hintText: 'Please enter your password!',
               ),
-              getHeight(context, 0.02),
+              getHeight(context, 0.05),
               ButtonCustom(
                 function: widget.controller.goToNavigator,
                 title: 'SIGN IN',
               ),
+              getHeight(context, 0.02),
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
@@ -91,30 +86,30 @@ class _LoginBodyPageState extends State<LoginBodyPage> {
                   Expanded(
                     child: Text(
                       'Keep Sign In',
-                      style: Theme.of(context).textTheme.displaySmall,
+                      style: Theme.of(context).textTheme.bodyLarge,
                     ),
                   ),
                   Container(
                     decoration: BoxDecoration(
                       border: Border(
                         bottom: BorderSide(
-                          color: Theme.of(context).colorScheme.secondary,
+                          color: Theme.of(context).colorScheme.outline,
                         ),
                       ),
                     ),
                     child: Text(
                       'Forgot Password?',
-                      style: Theme.of(context).textTheme.displaySmall!.copyWith(
+                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                           color: Theme.of(context).colorScheme.secondary),
                     ),
                   )
                 ],
               ),
-              getHeight(context, 0.02),
+              getHeight(context, 0.05),
               Align(
                 child: Text(
                   'Don’t have an account?',
-                  style: Theme.of(context).textTheme.displaySmall,
+                  style: Theme.of(context).textTheme.bodyMedium,
                 ),
               ),
               getHeight(context, 0.02),

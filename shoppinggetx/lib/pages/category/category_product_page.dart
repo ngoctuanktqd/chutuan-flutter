@@ -1,10 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:like_button/like_button.dart';
 import 'package:shoppinggetx/apps/consts/consts.dart';
+import 'package:shoppinggetx/apps/consts/helpers.dart';
+import 'package:shoppinggetx/apps/widgets/text_field_custom.dart';
 import 'package:shoppinggetx/manager/controllers/product_controller.dart';
 
-class CategoryProductPage extends StatelessWidget {
+class CategoryProductPage extends StatefulWidget {
   const CategoryProductPage({super.key});
+
+  @override
+  State<CategoryProductPage> createState() => _CategoryProductPageState();
+}
+
+class _CategoryProductPageState extends State<CategoryProductPage> {
+  TextEditingController searchController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     final productController = Get.put(ProductController());
@@ -13,48 +23,31 @@ class CategoryProductPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          item.name.toString(),
-          style: const TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 18,
-          ),
+          item.name,
+          style: Theme.of(context).textTheme.headlineSmall,
         ),
-        actions: const [
-          Icon(Icons.filter_alt_rounded),
-          SizedBox(
-            width: 20,
-          ),
-          Icon(Icons.more_vert_rounded),
-          SizedBox(
-            width: 20,
-          ),
+        actions: [
+          const Icon(Icons.filter_alt_rounded),
+          getWidth(context, 0.02),
+          const Icon(Icons.more_vert_rounded),
+          getWidth(context, 0.03),
         ],
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+        padding: const EdgeInsets.symmetric(
+          vertical: 10,
+          horizontal: 20,
+        ),
         child: Column(
           children: [
-            TextField(
-              decoration: InputDecoration(
-                prefixIcon: const Icon(Icons.search_rounded),
-                hintText: 'Search ${item.name}',
-                border: const OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: Color(0xffE8EFF3),
-                  ),
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(20),
-                  ),
-                ),
-              ),
+            TextFieldCustom(
+              controller: searchController,
+              prefixIcon: Icons.search_rounded,
+              hintText: 'Search ${item.name}',
             ),
-            const SizedBox(
-              height: 20,
-            ),
+            getHeight(context, 0.05),
             Expanded(
               child: GridView.builder(
-                // shrinkWrap: true,
-                // physics: const NeverScrollableScrollPhysics(),
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 1,
                   childAspectRatio: 3 / 1,
@@ -64,7 +57,7 @@ class CategoryProductPage extends StatelessWidget {
                 itemBuilder: (context, index) {
                   return InkWell(
                     onTap: () {
-                      productController.goToProduct();
+                      productController.goToProduct(listProduct[index].id);
                     },
                     child: Container(
                       padding: const EdgeInsets.only(bottom: 20),
@@ -95,38 +88,66 @@ class CategoryProductPage extends StatelessWidget {
                               child: Stack(
                                 children: [
                                   Positioned(
-                                    child: Container(
-                                      decoration: const BoxDecoration(
-                                        color: Color(0xffFF6464),
-                                        borderRadius: BorderRadius.only(
-                                          bottomRight: Radius.circular(10),
-                                        ),
-                                      ),
-                                      width: 30,
-                                      height: 30,
-                                      child: const Icon(
-                                        Icons.favorite_rounded,
-                                        color: Colors.white,
-                                      ),
+                                    child: Obx(
+                                      () {
+                                        int indexFavorit = productController
+                                            .listFavorit
+                                            .indexWhere((element) =>
+                                                element.id ==
+                                                listProduct[index].id);
+                                        return Container(
+                                          decoration: BoxDecoration(
+                                            color: indexFavorit == -1
+                                                ? const Color(0xffFF6464)
+                                                : Colors.white,
+                                            borderRadius:
+                                                const BorderRadius.only(
+                                              bottomRight: Radius.circular(10),
+                                            ),
+                                          ),
+                                          width: 32,
+                                          height: 36,
+                                          child: LikeButton(
+                                            size: 24,
+                                            isLiked: indexFavorit != -1
+                                                ? true
+                                                : false,
+                                            likeBuilder: (bool isLiked) {
+                                              return Icon(
+                                                Icons.favorite,
+                                                color: indexFavorit == -1
+                                                    ? Colors.white
+                                                    : const Color(0xffFF6464),
+                                              );
+                                            },
+                                            onTap: (isLike) async {
+                                              productController.setFavorit(
+                                                  listProduct[index]);
+                                              return !isLike;
+                                            },
+                                          ),
+                                        );
+                                      },
                                     ),
                                   ),
                                 ],
                               ),
                             ),
                           ),
-                          const SizedBox(
-                            width: 20,
-                          ),
+                          getWidth(context, 0.02),
                           Expanded(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
                                   listProduct[index].name,
-                                  style: const TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyLarge!
+                                      .copyWith(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w800,
+                                      ),
                                 ),
                                 Expanded(
                                   child: Wrap(
@@ -134,38 +155,44 @@ class CategoryProductPage extends StatelessWidget {
                                     children: [
                                       Text(
                                         '\$ ${listProduct[index].price * (1 - listProduct[index].discount)}',
-                                        style: const TextStyle(
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.bold,
-                                        ),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .labelLarge!
+                                            .copyWith(
+                                              fontWeight: FontWeight.w600,
+                                            ),
                                       ),
-                                      const SizedBox(
-                                        width: 10,
-                                      ),
+                                      getWidth(context, 0.01),
                                       Text(
                                         '\$${listProduct[index].price}',
-                                        style: const TextStyle(
-                                          color: Color(0xffBFC9DA),
-                                          fontSize: 16,
-                                          decoration:
-                                              TextDecoration.lineThrough,
-                                          decorationColor: Color(0xffBFC9DA),
-                                        ),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .labelLarge!
+                                            .copyWith(
+                                              color: const Color(0xffBFC9DA),
+                                              fontWeight: FontWeight.w400,
+                                              decoration:
+                                                  TextDecoration.lineThrough,
+                                              decorationColor:
+                                                  const Color(0xffBFC9DA),
+                                            ),
                                       ),
                                     ],
                                   ),
                                 ),
                                 Wrap(
                                   children: [
-                                    const Icon(Icons.local_offer_rounded,
-                                        color: Color(0xffC29C1D)),
-                                    const SizedBox(
-                                      width: 10,
+                                    const Icon(
+                                      Icons.local_offer_rounded,
+                                      color: Color(0xffC29C1D),
+                                      size: 14,
                                     ),
+                                    getWidth(context, 0.01),
                                     Text(
                                       'Disc. ${listProduct[index].discount * 100}%Off',
                                       style: const TextStyle(
                                         color: Color(0xffC29C1D),
+                                        fontSize: 16,
                                       ),
                                     )
                                   ],
@@ -175,10 +202,10 @@ class CategoryProductPage extends StatelessWidget {
                           ),
                           Container(
                             padding: const EdgeInsets.all(8.0),
-                            decoration: const BoxDecoration(
-                              color: Color(0xff027335),
+                            decoration: BoxDecoration(
+                              color: Theme.of(context).colorScheme.secondary,
                               borderRadius:
-                                  BorderRadius.all(Radius.circular(10)),
+                                  const BorderRadius.all(Radius.circular(10)),
                             ),
                             child: const Icon(
                               Icons.shopping_cart_rounded,

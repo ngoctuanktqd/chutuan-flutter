@@ -4,12 +4,12 @@ import 'package:shoppinggetx/model/product_model.dart';
 
 class TuConstColor {
   static const Color color_01 = Color(0xffE8EFF3);
-  static const Color color_02 = Color(0xffC29C1D);
   static const Color color_03 = Colors.white;
   static const Color red_01 = Color(0xffFF4040);
   static const Color red_02 = Color(0xffFF6464);
   static const Color yellow_01 = Color(0xffFFA902);
   static const Color accent_01 = Color(0xffC29C1D);
+  static const Color green_01 = Color(0xffC8EDD9);
 }
 
 class DataConstant {

@@ -15,7 +15,9 @@ class LoginHeaderPage extends StatelessWidget {
         color: Colors.transparent,
         child: Text(
           'Grocery App',
-          style: Theme.of(context).textTheme.titleSmall,
+          style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                fontWeight: FontWeight.normal,
+              ),
         ),
       ),
     );

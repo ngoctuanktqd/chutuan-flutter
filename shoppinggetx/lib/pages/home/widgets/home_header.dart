@@ -20,17 +20,12 @@ class HomeHeaderPage extends StatelessWidget {
             children: [
               Text(
                 'Good Morning',
-                style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                      color: Theme.of(context).colorScheme.primary,
-                      fontSize: 14,
-                    ),
+                style: Theme.of(context).textTheme.bodyMedium,
               ),
               getWidth(context, 0.02),
               Text(
                 'Louis A. 👋',
-                style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                      color: Theme.of(context).colorScheme.primary,
-                    ),
+                style: Theme.of(context).textTheme.headlineSmall!,
               ),
             ],
           ),
@@ -46,16 +41,15 @@ class HomeHeaderPage extends StatelessWidget {
                   ),
                 ),
               ),
-              const Positioned(
+              Positioned(
                 top: 10,
                 left: 30,
                 child: Text(
                   '6',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w800,
+                      ),
                 ),
               ),
               Positioned(
@@ -64,7 +58,7 @@ class HomeHeaderPage extends StatelessWidget {
                   height: 45,
                   width: 45,
                   decoration: BoxDecoration(
-                    color: TuConstColor.color_02,
+                    color: TuConstColor.accent_01,
                     shape: BoxShape.circle,
                     border: Border.all(
                       width: 5,
