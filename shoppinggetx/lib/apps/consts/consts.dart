@@ -12,6 +12,8 @@ class TuConstColor {
   static const Color green_01 = Color(0xffC8EDD9);
 }
 
+enum InputType { Email, Password }
+
 class DataConstant {
   static List<ProductModel> listProduct = [
     ProductModel(

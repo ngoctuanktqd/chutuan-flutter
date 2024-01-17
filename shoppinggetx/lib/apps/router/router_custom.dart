@@ -11,6 +11,7 @@ import 'package:shoppinggetx/manager/bindings/navigator_bottom_binding.dart';
 import 'package:shoppinggetx/manager/bindings/product_binding.dart';
 import 'package:shoppinggetx/manager/bindings/settings_binding.dart';
 import 'package:shoppinggetx/manager/bindings/signup_binding.dart';
+import 'package:shoppinggetx/manager/midelware/loading_middleware.dart';
 import 'package:shoppinggetx/pages/cart/cart_page.dart';
 import 'package:shoppinggetx/pages/category/category_page.dart';
 import 'package:shoppinggetx/pages/category/category_product_page.dart';
@@ -29,6 +30,9 @@ class RouterCustom {
       name: RouterName.loading,
       page: () => const LoadingPage(),
       binding: LoadingBinding(),
+      middlewares: [
+        LoadingMiddleware(),
+      ],
     ),
     GetPage(
       name: RouterName.login,

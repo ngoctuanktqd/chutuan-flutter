@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:get/get.dart';
 import 'package:shoppinggetx/apps/consts/my_key.dart';
 import 'package:shoppinggetx/services/shared_service.dart';
@@ -13,6 +15,9 @@ class AppStore extends GetxController {
   void onInit() {
     // TODO: implement onInit
     super.onInit();
-    _firstLogined.value = SharedService.to.getString(MyKey.firstLogin) as int;
+    _firstLogined.value = SharedService.to.getString(MyKey.firstLogin) == ''
+        ? 0
+        : int.parse(jsonDecode(SharedService.to.getString(MyKey.firstLogin)));
+    SharedService.to.setString(MyKey.firstLogin, '1');
   }
 }

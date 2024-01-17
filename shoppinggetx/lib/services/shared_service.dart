@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:ffi';
 
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -17,8 +18,8 @@ class SharedService extends GetxService {
     await _prefs.setString(key, jsonEncode(value));
   }
 
-  Object getString(String key) async {
+  String getString(String key) {
     String value = _prefs.getString(key) ?? '';
-    return jsonDecode(value);
+    return value;
   }
 }

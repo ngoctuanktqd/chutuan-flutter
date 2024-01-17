@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shoppinggetx/apps/consts/consts.dart';
 import 'package:shoppinggetx/apps/consts/helpers.dart';
 import 'package:shoppinggetx/apps/widgets/button_custom.dart';
 import 'package:shoppinggetx/apps/widgets/text_field_custom.dart';
 import 'package:shoppinggetx/manager/controllers/signup_controller.dart';
 
-class SignUpBodyPage extends StatefulWidget {
+class SignUpBodyPage extends StatelessWidget {
   const SignUpBodyPage({
     super.key,
     required this.controller,
@@ -13,14 +14,6 @@ class SignUpBodyPage extends StatefulWidget {
 
   final SignUpController controller;
 
-  @override
-  State<SignUpBodyPage> createState() => _SignUpBodyPageState();
-}
-
-class _SignUpBodyPageState extends State<SignUpBodyPage> {
-  final TextEditingController _userNameController = TextEditingController();
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -47,25 +40,38 @@ class _SignUpBodyPageState extends State<SignUpBodyPage> {
               style: Theme.of(context).textTheme.bodyMedium,
             ),
             getHeight(context, 0.01),
-            TextFieldCustom(
-              controller: _userNameController,
-              prefixIcon: Icons.person_2_rounded,
-              hintText: 'Enter your username!',
+            Form(
+              key: controller.state.formKey,
+              child: Column(
+                children: [
+                  TextFieldCustom(
+                    controller: controller.state.username,
+                    prefixIcon: Icons.person_2_rounded,
+                    hintText: 'Enter your username!',
+                  ),
+                  getHeight(context, 0.01),
+                  TextFieldCustom(
+                    controller: controller.state.email,
+                    prefixIcon: Icons.person_2_rounded,
+                    hintText: 'Enter your email!',
+                    inputType: InputType.Email,
+                  ),
+                  getHeight(context, 0.01),
+                  TextFieldCustom(
+                    controller: controller.state.password,
+                    prefixIcon: Icons.person_2_rounded,
+                    suffixIcon: Icons.visibility_rounded,
+                    hintText: 'Enter your password!',
+                    obscure: true,
+                  ),
+                  getHeight(context, 0.02),
+                  ButtonCustom(
+                    title: 'REGISTER',
+                    function: controller.register,
+                  ),
+                ],
+              ),
             ),
-            TextFieldCustom(
-              controller: _emailController,
-              prefixIcon: Icons.person_2_rounded,
-              hintText: 'Enter your email!',
-            ),
-            TextFieldCustom(
-              controller: _passController,
-              prefixIcon: Icons.person_2_rounded,
-              suffixIcon: Icons.visibility_rounded,
-              hintText: 'Enter your password!',
-              obscure: true,
-            ),
-            getHeight(context, 0.02),
-            ButtonCustom(title: 'REGISTER', function: () {}),
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -74,9 +80,9 @@ class _SignUpBodyPageState extends State<SignUpBodyPage> {
                   () {
                     return Checkbox(
                       activeColor: Theme.of(context).colorScheme.secondary,
-                      value: widget.controller.approveTerm.value,
+                      value: controller.approveTerm.value,
                       onChanged: (value) {
-                        widget.controller.setAproveTerm(value);
+                        controller.setAproveTerm(value);
                         return;
                       },
                     );
@@ -127,7 +133,7 @@ class _SignUpBodyPageState extends State<SignUpBodyPage> {
             ),
             ButtonCustom(
               title: 'SIGN IN',
-              function: widget.controller.goToLogin,
+              function: controller.goToLogin,
               isOutline: true,
             ),
             getHeight(context, 0.02),

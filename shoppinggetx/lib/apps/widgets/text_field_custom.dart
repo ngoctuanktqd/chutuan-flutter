@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:shoppinggetx/apps/consts/consts.dart';
+import 'package:shoppinggetx/apps/consts/functions.dart';
 
 class TextFieldCustom extends StatefulWidget {
   TextFieldCustom({
@@ -9,6 +11,7 @@ class TextFieldCustom extends StatefulWidget {
     this.hintText = 'Enter your password!',
     this.obscure = false,
     required this.controller,
+    this.inputType,
   });
 
   IconData prefixIcon;
@@ -17,6 +20,7 @@ class TextFieldCustom extends StatefulWidget {
   String hintText;
   bool obscure;
   TextEditingController controller;
+  InputType? inputType;
 
   @override
   State<TextFieldCustom> createState() => _TextFieldCustomState();
@@ -26,7 +30,20 @@ class _TextFieldCustomState extends State<TextFieldCustom> {
   bool hiddenText = true;
   @override
   Widget build(BuildContext context) {
-    return TextField(
+    return TextFormField(
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'Please enter some text';
+        }
+
+        switch (widget.inputType) {
+          case InputType.Email:
+            return checkEmailForm(value) ? null : 'Email not correct';
+          default:
+        }
+
+        return null;
+      },
       controller: widget.controller,
       // hien ban phim
       scrollPadding: EdgeInsets.only(
