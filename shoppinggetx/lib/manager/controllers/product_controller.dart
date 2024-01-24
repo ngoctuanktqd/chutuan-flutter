@@ -1,10 +1,17 @@
+import 'dart:convert';
+
 import 'package:get/get.dart';
 import 'package:shoppinggetx/apps/consts/consts.dart';
+import 'package:shoppinggetx/apps/consts/my_key.dart';
 import 'package:shoppinggetx/apps/router/router_name.dart';
+import 'package:shoppinggetx/manager/states/product_state.dart';
 import 'package:shoppinggetx/model/cart_model.dart';
 import 'package:shoppinggetx/model/product_model.dart';
+import 'package:shoppinggetx/services/shared_service.dart';
 
 class ProductController extends GetxController {
+  final state = ProductState();
+
   // di toi router
   goToProduct(id) {
     Get.toNamed(RouterName.product, arguments: id);
@@ -73,16 +80,30 @@ class ProductController extends GetxController {
   }
 
   // Xu ly san pham yeu thich
-  RxList<ProductModel> listFavorit = <ProductModel>[].obs;
+
+  setFavoritList() {
+    if (SharedService.to.getString(MyKey.productFavorit) != '' &&
+        state.listFavorit.isEmpty) {
+      List productFavorit =
+          jsonDecode(SharedService.to.getString(MyKey.productFavorit));
+      List<ProductModel> listProductFavorit =
+          productFavorit.map((e) => ProductModel.fromJson(e)).toList();
+      state.listFavorit.addAll(listProductFavorit);
+    }
+    return state.listFavorit;
+  }
+
   setFavorit(item) {
-    final index = listFavorit.indexWhere((element) => element.id == item.id);
+    final index =
+        state.listFavorit.indexWhere((element) => element.id == item.id);
     if (index != -1) {
       // Da co thi chi can tang so luong
-      listFavorit.remove(listFavorit[index]);
-      listFavorit.refresh();
+      state.listFavorit.remove(state.listFavorit[index]);
+      state.listFavorit.refresh();
     } else {
       // chua co thi them vao
-      listFavorit.add(item);
+      state.listFavorit.add(item);
     }
+    SharedService.to.setString(MyKey.productFavorit, state.listFavorit);
   }
 }

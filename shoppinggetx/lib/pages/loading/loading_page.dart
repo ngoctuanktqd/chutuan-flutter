@@ -34,9 +34,7 @@ class LoadingPage extends GetView<LoadingController> {
               ),
               getHeight(context, 0.08),
               InkWell(
-                onTap: () {
-                  controller.goToLogin();
-                },
+                onTap: controller.goToLogin,
                 child: Text(
                   'NEXT',
                   style: Theme.of(context).textTheme.titleMedium,

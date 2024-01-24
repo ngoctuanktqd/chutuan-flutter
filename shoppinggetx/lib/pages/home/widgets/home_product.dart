@@ -9,8 +9,10 @@ class HomeProductPage extends StatelessWidget {
   const HomeProductPage({super.key});
   @override
   Widget build(BuildContext context) {
-    List listProduct = DataConstant.listProduct;
     final productController = Get.put(ProductController());
+
+    print(productController.state.listFavorit);
+    List listProduct = DataConstant.listProduct;
     return Column(
       children: [
         Container(
@@ -101,7 +103,8 @@ class HomeProductPage extends StatelessWidget {
                               top: 10,
                               left: 10,
                               child: Obx(() {
-                                int indexFavorit = productController.listFavorit
+                                int indexFavorit = productController
+                                    .state.listFavorit
                                     .indexWhere((element) =>
                                         element.id == listProduct[index].id);
                                 return LikeButton(

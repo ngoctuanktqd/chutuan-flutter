@@ -1,10 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shoppinggetx/apps/consts/functions.dart';
+import 'package:shoppinggetx/apps/consts/my_key.dart';
 
 import 'package:shoppinggetx/apps/router/router_name.dart';
 import 'package:shoppinggetx/manager/states/login_state.dart';
+import 'package:shoppinggetx/model/user_info_model.dart';
+import 'package:shoppinggetx/services/shared_service.dart';
+import 'package:shoppinggetx/stores/app_store.dart';
 
 class LoginController extends GetxController {
   final state = LoginState();
@@ -14,8 +19,8 @@ class LoginController extends GetxController {
     // TODO: implement onInit
     super.onInit();
     state.saveSigin = true.obs;
-    state.userName = TextEditingController();
-    state.password = TextEditingController();
+    state.userName = TextEditingController(text: '1234567890@gmail.com');
+    state.password = TextEditingController(text: '1234567890');
     state.formKey = GlobalKey<FormState>();
   }
 
@@ -23,43 +28,63 @@ class LoginController extends GetxController {
     state.saveSigin.value = value;
   }
 
-  sigIn() {
+  sigIn() async {
     if (state.formKey.currentState!.validate()) {
       showLoading();
-      // Da validate 1 phan input
-      FirebaseFirestore.instance
-          .collection('users')
-          .where('email', isEqualTo: state.userName.text)
-          .get()
-          .then(
-        (value) {
-          closeLoading();
-          // Tim gia tri cua emai
-          if (value.docs.isNotEmpty) {
-            // Co gia tri email
+      try {
+        // Luu authen
+        final credential =
+            await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: state.userName.text,
+          password: state.password.text,
+        );
+        if (credential.user?.uid != '') {
+          final users = FirebaseFirestore.instance
+              .collection('users')
+              .withConverter<UserInfoModel>(
+                fromFirestore: (snapshot, _) =>
+                    UserInfoModel.fromMap(snapshot.data()!),
+                toFirestore: (user, _) => user.toMap(),
+              );
+          final userInfo = await users
+              .doc(credential.user?.uid)
+              .get()
+              .then((snapshot) => snapshot.data()!)
+              .catchError(
+            (error) {
+              closeLoading();
+              showErrorMessage(error.toString());
+              print("Failed to add user: $error");
+            },
+          );
 
-            final email = value.docs.first.data()['email'];
-            final pasword = value.docs.first.data()['password'];
-            showSuccessMessage('Co tai khoan r');
-          } else {
-            closeLoading();
-            showErrorMessage('Email ban nhap khong ton tai tren he thong');
-          }
-        },
-      );
-
-      print('Chuan ma');
+          SharedService.to.setString(MyKey.userInfo, userInfo);
+          AppStore.to.updateUserInfo(userInfo);
+          Get.offAllNamed(RouterName.navigatorBottom);
+        }
+      } on FirebaseAuthException catch (e) {
+        closeLoading();
+        if (e.code == 'weak-password') {
+          showErrorMessage('The password provided is too weak.');
+          print('The password provided is too weak.');
+        } else if (e.code == 'email-already-in-use') {
+          showErrorMessage('The account already exists for that email.');
+          print('The account already exists for that email.');
+        }
+      } catch (e) {
+        print(e);
+      }
     }
 
     //
   }
 
   goToSignUp() {
-    Get.toNamed(RouterName.signup);
+    Get.offAndToNamed(RouterName.signup);
   }
 
   goToNavigator() {
     // print('gotoHome');
-    Get.toNamed(RouterName.navigatorBottom);
+    Get.offAndToNamed(RouterName.navigatorBottom);
   }
 }

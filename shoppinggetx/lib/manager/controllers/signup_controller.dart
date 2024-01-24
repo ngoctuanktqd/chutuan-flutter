@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:shoppinggetx/apps/consts/functions.dart';
 import 'package:shoppinggetx/apps/router/router_name.dart';
 import 'package:shoppinggetx/manager/states/signup_state.dart';
+import 'package:shoppinggetx/model/user_info_model.dart';
 
 class SignUpController extends GetxController {
   final state = SigupState();
@@ -26,28 +27,46 @@ class SignUpController extends GetxController {
   }
 
   goToLogin() {
-    Get.toNamed(RouterName.login);
+    Get.offAndToNamed(RouterName.login);
   }
 
   register() async {
     if (state.formKey.currentState!.validate()) {
       showLoading();
       try {
-        CollectionReference users =
-            FirebaseFirestore.instance.collection('users');
-        users.add({
-          'email': state.email.text,
-          'password': state.password.text,
-        }).then((value) {
-          print('ADD');
-          closeLoading();
-          Get.back();
-          showSuccessMessage('Create Success');
-        }).catchError((error) {
-          closeLoading();
-          showErrorMessage(error.toString());
-          print("Failed to add user: $error");
-        });
+        // Luu authen
+        final credential =
+            await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: state.email.text,
+          password: state.password.text,
+        );
+        if (credential.user?.uid != '') {
+          UserInfoModel newUser = UserInfoModel(
+            id: credential.user!.uid,
+            userName: state.username.text,
+            email: credential.user?.email ?? '',
+          );
+          final users = FirebaseFirestore.instance
+              .collection('users')
+              .withConverter<UserInfoModel>(
+                fromFirestore: (snapshot, _) =>
+                    UserInfoModel.fromMap(snapshot.data()!),
+                toFirestore: (user, _) => user.toMap(),
+              );
+          await users.doc(credential.user!.uid).set(newUser).then(
+            (value) {
+              closeLoading();
+              Get.back();
+              showSuccessMessage('Create Success');
+            },
+          ).catchError(
+            (error) {
+              closeLoading();
+              showErrorMessage(error.toString());
+              print("Failed to add user: $error");
+            },
+          );
+        }
       } on FirebaseAuthException catch (e) {
         closeLoading();
         if (e.code == 'weak-password') {

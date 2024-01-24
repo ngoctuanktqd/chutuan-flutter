@@ -10,4 +10,6 @@ class RouterName {
   static const String categoryProduct = '/categoryProduct';
   static const String cart = '/cart';
   static const String checkout = '/checkout';
+  static const String favorit = '/favorit';
+  static const String personInfo = '/personInfo';
 }

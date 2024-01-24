@@ -3,14 +3,11 @@ import 'package:get/get.dart';
 import 'package:shoppinggetx/apps/router/router_name.dart';
 import 'package:shoppinggetx/stores/app_store.dart';
 
-class LoadingMiddleware extends GetMiddleware {
+class LoginMiddleware extends GetMiddleware {
   @override
   RouteSettings? redirect(String? route) {
-    if (AppStore.to.firstLogined == 1) {
-      if (AppStore.to.userInfoId != '') {
-        return const RouteSettings(name: RouterName.navigatorBottom);
-      }
-      return const RouteSettings(name: RouterName.login);
+    if (AppStore.to.userInfoId != '') {
+      return const RouteSettings(name: RouterName.navigatorBottom);
     }
     // TODO: implement redirect
     return super.redirect(route);

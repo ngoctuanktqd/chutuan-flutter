@@ -1,29 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:like_button/like_button.dart';
-import 'package:shoppinggetx/apps/consts/consts.dart';
 import 'package:shoppinggetx/apps/consts/helpers.dart';
 import 'package:shoppinggetx/apps/widgets/text_field_custom.dart';
+import 'package:shoppinggetx/manager/controllers/favorit_controller.dart';
 import 'package:shoppinggetx/manager/controllers/product_controller.dart';
 
-class CategoryProductPage extends StatefulWidget {
-  const CategoryProductPage({super.key});
-
-  @override
-  State<CategoryProductPage> createState() => _CategoryProductPageState();
-}
-
-class _CategoryProductPageState extends State<CategoryProductPage> {
-  TextEditingController searchController = TextEditingController();
+class FavoritPage extends StatelessWidget {
+  const FavoritPage({super.key});
   @override
   Widget build(BuildContext context) {
-    final productController = Get.put(ProductController());
-    final item = Get.arguments;
-    List listProduct = DataConstant.listProduct;
+    final controller = Get.put(FavoritController());
+    final productController = Get.find<ProductController>();
+    print(productController.state.listFavorit);
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          item.name,
+          'Favorit',
           style: Theme.of(context).textTheme.headlineSmall,
         ),
         actions: [
@@ -41,9 +33,9 @@ class _CategoryProductPageState extends State<CategoryProductPage> {
         child: Column(
           children: [
             TextFieldCustom(
-              controller: searchController,
+              controller: controller.state.searchController,
               prefixIcon: Icons.search_rounded,
-              hintText: 'Search ${item.name}',
+              hintText: 'Search Favorit Product',
             ),
             getHeight(context, 0.05),
             Expanded(
@@ -57,7 +49,8 @@ class _CategoryProductPageState extends State<CategoryProductPage> {
                 itemBuilder: (context, index) {
                   return InkWell(
                     onTap: () {
-                      productController.goToProduct(listProduct[index].id);
+                      productController.goToProduct(
+                          productController.state.listFavorit[index].id);
                     },
                     child: Container(
                       padding: const EdgeInsets.only(bottom: 20),
@@ -75,62 +68,12 @@ class _CategoryProductPageState extends State<CategoryProductPage> {
                             aspectRatio: 1 / 1,
                             child: Container(
                               decoration: const BoxDecoration(
-                                borderRadius: BorderRadius.only(
-                                  topRight: Radius.circular(10),
-                                  bottomLeft: Radius.circular(10),
-                                  bottomRight: Radius.circular(10),
-                                ),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10)),
                                 image: DecorationImage(
                                     image: AssetImage(
                                         'assets/images/placeholder_product.webp'),
                                     fit: BoxFit.cover),
-                              ),
-                              child: Stack(
-                                children: [
-                                  Positioned(
-                                    child: Obx(
-                                      () {
-                                        int indexFavorit = productController
-                                            .state.listFavorit
-                                            .indexWhere((element) =>
-                                                element.id ==
-                                                listProduct[index].id);
-                                        return Container(
-                                          decoration: BoxDecoration(
-                                            color: indexFavorit == -1
-                                                ? const Color(0xffFF6464)
-                                                : Colors.white,
-                                            borderRadius:
-                                                const BorderRadius.only(
-                                              bottomRight: Radius.circular(10),
-                                            ),
-                                          ),
-                                          width: 32,
-                                          height: 36,
-                                          child: LikeButton(
-                                            size: 24,
-                                            isLiked: indexFavorit != -1
-                                                ? true
-                                                : false,
-                                            likeBuilder: (bool isLiked) {
-                                              return Icon(
-                                                Icons.favorite,
-                                                color: indexFavorit == -1
-                                                    ? Colors.white
-                                                    : const Color(0xffFF6464),
-                                              );
-                                            },
-                                            onTap: (isLike) async {
-                                              productController.setFavorit(
-                                                  listProduct[index]);
-                                              return !isLike;
-                                            },
-                                          ),
-                                        );
-                                      },
-                                    ),
-                                  ),
-                                ],
                               ),
                             ),
                           ),
@@ -140,7 +83,8 @@ class _CategoryProductPageState extends State<CategoryProductPage> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  listProduct[index].name,
+                                  productController
+                                      .state.listFavorit[index].name,
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodyLarge!
@@ -154,7 +98,7 @@ class _CategoryProductPageState extends State<CategoryProductPage> {
                                     crossAxisAlignment: WrapCrossAlignment.end,
                                     children: [
                                       Text(
-                                        '\$ ${listProduct[index].price * (1 - listProduct[index].discount)}',
+                                        '\$ ${productController.state.listFavorit[index].price * (1 - productController.state.listFavorit[index].discount)}',
                                         style: Theme.of(context)
                                             .textTheme
                                             .labelLarge!
@@ -164,7 +108,7 @@ class _CategoryProductPageState extends State<CategoryProductPage> {
                                       ),
                                       getWidth(context, 0.01),
                                       Text(
-                                        '\$${listProduct[index].price}',
+                                        '\$${productController.state.listFavorit[index].price}',
                                         style: Theme.of(context)
                                             .textTheme
                                             .labelLarge!
@@ -189,7 +133,7 @@ class _CategoryProductPageState extends State<CategoryProductPage> {
                                     ),
                                     getWidth(context, 0.01),
                                     Text(
-                                      'Disc. ${listProduct[index].discount * 100}%Off',
+                                      'Disc. ${productController.state.listFavorit[index].discount * 100}%Off',
                                       style: const TextStyle(
                                         color: Color(0xffC29C1D),
                                         fontSize: 16,
@@ -217,7 +161,7 @@ class _CategoryProductPageState extends State<CategoryProductPage> {
                     ),
                   );
                 },
-                itemCount: listProduct.length,
+                itemCount: productController.state.listFavorit.length,
               ),
             ),
           ],

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shoppinggetx/apps/consts/consts.dart';
 import 'package:shoppinggetx/apps/consts/helpers.dart';
+import 'package:shoppinggetx/stores/app_store.dart';
 
 class HomeHeaderPage extends StatelessWidget {
   const HomeHeaderPage({
@@ -24,7 +25,7 @@ class HomeHeaderPage extends StatelessWidget {
               ),
               getWidth(context, 0.02),
               Text(
-                'Louis A. 👋',
+                '${AppStore.to.userInfoUsername} 👋',
                 style: Theme.of(context).textTheme.headlineSmall!,
               ),
             ],

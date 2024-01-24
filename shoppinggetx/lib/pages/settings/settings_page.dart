@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:shoppinggetx/apps/router/router_name.dart';
 import 'package:shoppinggetx/pages/settings/widgets/row_settings_page.dart';
+import 'package:shoppinggetx/stores/app_store.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
@@ -25,12 +28,14 @@ class SettingsPage extends StatelessWidget {
                       ClipRRect(
                         borderRadius:
                             const BorderRadius.all(Radius.circular(80)),
-                        child: Image.asset(
-                          'assets/images/placeholder_avatar.gif',
-                          height: 80,
-                          width: 80,
-                          fit: BoxFit.cover,
-                        ),
+                        child: Obx(() {
+                          return Image.network(
+                            AppStore.to.userInfoAvatar,
+                            height: 80,
+                            width: 80,
+                            fit: BoxFit.cover,
+                          );
+                        }),
                       ),
                       const SizedBox(
                         width: 20,
@@ -117,6 +122,9 @@ class SettingsPage extends StatelessWidget {
                       RowSettingsPage(
                         name: 'Personal Info',
                         preIcon: const Icon(Icons.person_2_rounded),
+                        funtion: () {
+                          Get.toNamed(RouterName.personInfo);
+                        },
                       ),
                       RowSettingsPage(
                         name: 'Notification',

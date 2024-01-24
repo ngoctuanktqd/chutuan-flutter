@@ -14,8 +14,8 @@ class ProductImagePage extends GetView<ProductController> {
 
   @override
   Widget build(BuildContext context) {
-    int indexFavorit =
-        controller.listFavorit.indexWhere((element) => element.id == item.id);
+    int indexFavorit = controller.state.listFavorit
+        .indexWhere((element) => element.id == item.id);
     print(indexFavorit);
 
     return AspectRatio(

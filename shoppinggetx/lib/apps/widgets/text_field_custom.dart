@@ -12,6 +12,7 @@ class TextFieldCustom extends StatefulWidget {
     this.obscure = false,
     required this.controller,
     this.inputType,
+    this.lableText = '',
   });
 
   IconData prefixIcon;
@@ -21,6 +22,7 @@ class TextFieldCustom extends StatefulWidget {
   bool obscure;
   TextEditingController controller;
   InputType? inputType;
+  String lableText;
 
   @override
   State<TextFieldCustom> createState() => _TextFieldCustomState();
@@ -44,6 +46,7 @@ class _TextFieldCustomState extends State<TextFieldCustom> {
 
         return null;
       },
+      // Controller
       controller: widget.controller,
       // hien ban phim
       scrollPadding: EdgeInsets.only(
@@ -54,6 +57,8 @@ class _TextFieldCustomState extends State<TextFieldCustom> {
       autocorrect: !widget.obscure,
       // decor input
       decoration: InputDecoration(
+        // Lable
+        labelText: widget.lableText != '' ? widget.lableText : '',
         // bool autofocus = false,
         prefixIcon: widget.showPreicon ? Icon(widget.prefixIcon) : null,
         suffixIcon: widget.obscure

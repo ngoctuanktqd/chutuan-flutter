@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shoppinggetx/pages/cart/cart_page.dart';
+import 'package:shoppinggetx/pages/favorit/favorit_page.dart';
 import 'package:shoppinggetx/pages/home/home_page.dart';
 import 'package:shoppinggetx/pages/settings/settings_page.dart';
 
@@ -19,11 +20,7 @@ class _NavigatorBottomPageState extends State<NavigatorBottomPage> {
       color: Colors.pink,
     ),
     const CartPage(),
-    Container(
-      height: double.infinity,
-      width: double.infinity,
-      color: Colors.blue,
-    ),
+    const FavoritPage(),
     const SettingsPage(),
   ];
   int currentIndex = 0;
