@@ -27,7 +27,7 @@ class SignUpController extends GetxController {
   }
 
   goToLogin() {
-    Get.offAndToNamed(RouterName.login);
+    Get.back();
   }
 
   register() async {

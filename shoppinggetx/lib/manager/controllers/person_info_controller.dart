@@ -11,6 +11,7 @@ import 'package:shoppinggetx/manager/states/person_info_state.dart';
 import 'package:shoppinggetx/model/user_info_model.dart';
 import 'package:shoppinggetx/services/shared_service.dart';
 import 'package:shoppinggetx/stores/app_store.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 class PersonInfoController extends GetxController {
   final state = PersonInfoState();
@@ -30,9 +31,53 @@ class PersonInfoController extends GetxController {
         await ImagePicker().pickImage(source: ImageSource.gallery);
 
     if (pickedFile != null) {
-      state.avatarPath.value = pickedFile.path;
-      print(File(pickedFile.path));
-      print(state.avatarPath.value);
+      // state.avatarPath.value = pickedFile.path;
+
+      // final appDocDir = await getApplicationDocumentsDirectory();
+      // final filePath = ${appDocDir.absolute}/path/to/mountains.jpg";
+      final file = File(pickedFile.path);
+
+// Create the file metadata
+      final metadata = SettableMetadata(contentType: "image/jpeg");
+
+// Create a reference to the Firebase Storage bucket
+      final storageRef = FirebaseStorage.instance.ref();
+
+// Upload file and metadata to the path 'images/mountains.jpg'
+      final uploadTask = storageRef
+          .child("images/user/${AppStore.to.userInfoId}.jpg")
+          .putFile(file, metadata);
+
+// Listen for state changes, errors, and completion of the upload.
+      uploadTask.snapshotEvents.listen(
+        (TaskSnapshot taskSnapshot) async {
+          switch (taskSnapshot.state) {
+            case TaskState.running:
+              final progress = 100.0 *
+                  (taskSnapshot.bytesTransferred / taskSnapshot.totalBytes);
+              print("Upload is $progress% complete.");
+              break;
+            case TaskState.paused:
+              print("Upload is paused.");
+              break;
+            case TaskState.canceled:
+              print("Upload was canceled");
+              break;
+            case TaskState.error:
+              // Handle unsuccessful uploads
+              print(TaskState.error);
+              break;
+            case TaskState.success:
+              // Handle successful uploads on complete
+              final imagePath = await taskSnapshot.ref.getDownloadURL();
+              state.avatarPath.value = imagePath;
+              break;
+          }
+        },
+      );
+
+      // print(File(pickedFile.path));
+      // print(state.avatarPath.value);
     }
   }
 
@@ -41,6 +86,7 @@ class PersonInfoController extends GetxController {
       showLoading();
       CollectionReference users =
           FirebaseFirestore.instance.collection('users');
+
       users.doc(AppStore.to.userInfoId).update(
         {
           'userName': state.userNameController.text,

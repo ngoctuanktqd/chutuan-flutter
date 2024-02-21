@@ -80,7 +80,7 @@ class LoginController extends GetxController {
   }
 
   goToSignUp() {
-    Get.offAndToNamed(RouterName.signup);
+    Get.toNamed(RouterName.signup);
   }
 
   goToNavigator() {

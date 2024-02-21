@@ -1,0 +1,47 @@
+<svg width="86" height="86" viewBox="0 0 86 86" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Group 164246">
+<g id="Rectangle 13" filter="url(#filter0_d_73_4526)">
+<rect x="10" y="6" width="66" height="66" rx="22" fill="#D2D2D2"/>
+</g>
+<g id="Group 164250">
+<path id="Vector" d="M43 32.333C39.3181 32.333 36.3333 35.3178 36.3333 38.9997C36.3333 40.8147 37.0587 42.4603 38.2353 43.6626C38.6936 44.1309 39.0704 44.6881 39.199 45.3306L39.9044 48.8562C40.1538 50.1026 41.2482 50.9997 42.5193 50.9997H43.4807C44.7517 50.9997 45.8461 50.1026 46.0956 48.8562L46.8011 45.3306C46.9296 44.6881 47.3063 44.1309 47.7647 43.6626C48.9413 42.4603 49.6667 40.8147 49.6667 38.9997C49.6667 35.3178 46.6819 32.333 43 32.333Z" fill="white" stroke="white" stroke-width="2"/>
+<g id="Vector_2">
+<path d="M43 28.3333V27V28.3333Z" fill="white"/>
+<path d="M43 28.3333V27" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="Vector_3">
+<path d="M51 31.0003L52.3333 29.667L51 31.0003Z" fill="white"/>
+<path d="M51 31.0003L52.3333 29.667" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="Vector_4">
+<path d="M53.6667 39H55H53.6667Z" fill="white"/>
+<path d="M53.6667 39H55" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="Vector_5">
+<path d="M32.3333 39H31H32.3333Z" fill="white"/>
+<path d="M32.3333 39H31" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="Vector_6">
+<path d="M33.6667 29.667L35 31.0003L33.6667 29.667Z" fill="white"/>
+<path d="M33.6667 29.667L35 31.0003" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="Vector_7">
+<path d="M40.3333 45.667H45.6666H40.3333Z" fill="white"/>
+<path d="M40.3333 45.667H45.6666" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<path id="Vector_8" opacity="0.1" d="M36.3333 38.9997C36.3333 35.3178 39.3181 32.333 43 32.333C46.6819 32.333 49.6667 35.3178 49.6667 38.9997C49.6667 40.8147 48.9413 42.4603 47.7647 43.6626C47.3063 44.1309 46.9296 44.6881 46.8011 45.3306L46.7339 45.6663H39.2661L39.199 45.3306C39.0704 44.6881 38.6936 44.1309 38.2353 43.6626C37.0587 42.4603 36.3333 40.8147 36.3333 38.9997Z" fill="#B4B4B4"/>
+</g>
+</g>
+<defs>
+<filter id="filter0_d_73_4526" x="0" y="0" width="86" height="86" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dy="4"/>
+<feGaussianBlur stdDeviation="5"/>
+<feComposite in2="hardAlpha" operator="out"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0.823529 0 0 0 0 0.823529 0 0 0 0 0.823529 0 0 0 0.2 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_73_4526"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_73_4526" result="shape"/>
+</filter>
+</defs>
+</svg>

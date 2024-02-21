@@ -21,7 +21,7 @@ void showLoading() {
 }
 
 void closeLoading() {
-  Get.back(closeOverlays: true);
+  Navigator.pop(Get.overlayContext!, true);
 }
 
 void showErrorMessage(message) {
@@ -36,7 +36,7 @@ void showErrorMessage(message) {
 
 void showSuccessMessage(message) {
   Get.snackbar(
-    'Error',
+    'Success',
     message,
     icon: const Icon(Icons.check),
     duration: const Duration(seconds: 3),

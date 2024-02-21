@@ -1,0 +1,80 @@
+[
+    {
+        "name": "spending",
+        "svg": "assets/images/icon_wallet_2.svg",
+        "content": "The wallet for your daily spendings - i.e. your salary account.",
+        "type": "spending"
+    },
+    {
+        "name": "credit",
+        "svg": "assets/images/icon_banking.svg",
+        "content": "The wallet for your daily spendings - i.e. your salary account.",
+        "type": "spending"
+    },
+    {
+        "name": "cash",
+        "svg": "assets/images/icon_cash.svg",
+        "content": "For money and transactions you make with cash.",
+        "type": "spending"
+    },
+    {
+        "name": "custom",
+        "svg": "assets/images/icon_wallet_grey.svg",
+        "content": "Specify yourself",
+        "type": "spending"
+    },
+    {
+        "name": "savings",
+        "svg": "assets/images/icon_saving.svg",
+        "content": "Your default savings wallets.",
+        "type": "saving"
+    },
+    {
+        "name": "rainy day run",
+        "svg": "assets/images/icon_heart.svg",
+        "content": "Reserved money for special need.",
+        "type": "saving"
+    },
+    {
+        "name": "trip",
+        "svg": "assets/images/icon_star.svg",
+        "content": "Savings for your trip or your vacation.",
+        "type": "saving"
+    },
+    {
+        "name": "house",
+        "svg": "assets/images/icon_house.svg",
+        "content": "Save up to buy a house or apartment.",
+        "type": "saving"
+    },
+    {
+        "name": "custom",
+        "svg": "assets/images/icon_wallet_grey.svg",
+        "content": "Specify yourself",
+        "type": "saving"
+    },
+    {
+        "name": "loan",
+        "svg": "assets/images/icon_house_blue.svg",
+        "content": "Your bank loan, mortage  short term debt.",
+        "type": "debt"
+    },
+    {
+        "name": "personal debt",
+        "svg": "assets/images/icon_person_red.svg",
+        "content": "Money that you owe someone else.",
+        "type": "debt"
+    },
+    {
+        "name": "car loan",
+        "svg": "assets/images/icon_car.svg",
+        "content": "Track your payments for your car loan.",
+        "type": "debt"
+    },
+    {
+        "name": "custom",
+        "svg": "assets/images/icon_wallet_grey.svg",
+        "content": "Specify yourself",
+        "type": "debt"
+    }
+]

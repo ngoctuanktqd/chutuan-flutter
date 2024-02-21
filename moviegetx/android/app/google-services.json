@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "666347984736",
+    "project_id": "myphim-3daf3",
+    "storage_bucket": "myphim-3daf3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:666347984736:android:87fbea326dc448f9e13005",
+        "android_client_info": {
+          "package_name": "com.example.moviegetx"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA4Q66Min86ZLOqpYOyK4e_I7V7FAfkT9Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

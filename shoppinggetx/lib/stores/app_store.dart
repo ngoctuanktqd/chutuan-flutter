@@ -33,7 +33,7 @@ class AppStore extends GetxController {
   @override
   void onInit() {
     // TODO: implement onInit
-    SharedService.to.clear(MyKey.firstLogin);
+    // SharedService.to.clear(MyKey.firstLogin);
     // SharedService.to.clear(MyKey.productFavorit);
     super.onInit();
     // SharedService.to.clear(MyKey.userInfo);
